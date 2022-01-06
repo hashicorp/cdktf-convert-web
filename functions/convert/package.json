@@ -1,0 +1,12 @@
+{
+  "name": "convert",
+  "version": "1.0.0",
+  "main": "runner.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@cdktf/hcl2cdk": "^0.8.5"
+  }
+}
