@@ -3,11 +3,14 @@ FROM docker.mirror.hashicorp.services/hashicorp/jsii-terraform
 RUN yum install -y cmake3 automake libtool
 
 RUN mkdir -p /lambda
-COPY ./* /lambda
-
 WORKDIR /lambda
+COPY tsconfig.json /lambda/
 
-RUN yarn install && yarn build
+COPY ./package.json /lambda/
+RUN yarn install
+
+COPY ./app.ts /lambda/
+RUN yarn build
 
 ENTRYPOINT ["/usr/bin/npx", "aws-lambda-ric"]
 CMD ["app.handler"]
