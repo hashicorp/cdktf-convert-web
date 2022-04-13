@@ -27,7 +27,9 @@ exports.handler = async function (
   } = event;
 
   if (httpMethod !== "POST") {
-    return res(405, { error: "Method Not Allowed" });
+    return res(405, {
+      error: `Method Not Allowed, got: '${httpMethod}' expected: 'POST'`,
+    });
   }
 
   return res(200, { error: `Stub response, got path ${path}` });

@@ -11,6 +11,7 @@
     "synth": "cdktf synth",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
+    "deploy": "cdktf deploy '*' --auto-approve --outputs-file=outputs.json",
     "test": "jest",
     "test:watch": "jest --watch",
     "upgrade": "npm i cdktf@latest cdktf-cli@latest",

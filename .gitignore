@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 !jest.config.js
 !setup.js
 !functions/convert/runner.js.DS_Store
+outputs.json
