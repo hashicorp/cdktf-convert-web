@@ -10,6 +10,6 @@ CODE=$(cat fixture.hcl)
 
 curl -X POST -H "Content-Type: application/json" \
     -d "{ 'code': $CODE }" \
-    "$SERVER"
+    "$SERVER/?provider='aws%40%3D3.0'&provider='google%40%3D4.0.5'"
 
 
