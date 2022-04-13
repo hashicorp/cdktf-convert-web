@@ -2,11 +2,17 @@
   "name": "convert",
   "version": "1.0.0",
   "main": "runner.js",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc"
+  },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@cdktf/hcl2cdk": "^0.8.5"
+    "@cdktf/hcl2cdk": "^0.10.1",
+    "aws-lambda-ric": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
   }
 }

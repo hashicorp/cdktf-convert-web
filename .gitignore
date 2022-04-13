@@ -9,4 +9,4 @@ cdktf.log
 tsconfig.tsbuildinfo
 !jest.config.js
 !setup.js
-!functions/convert/runner.js
+!functions/convert/runner.js.DS_Store

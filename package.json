@@ -20,9 +20,15 @@
     "node": ">=10.12"
   },
   "dependencies": {
-    "@cdktf/provider-aws": "^4.0.1",
-    "cdktf": "^0.8.5",
-    "constructs": "^10.0.26"
+    "@cdktf-plus/aws": "^0.3.0",
+    "@cdktf/provider-aws": "^7.0.13",
+    "@cdktf/provider-external": "^0.5.12",
+    "@cdktf/provider-null": "^0.6.13",
+    "cdktf": "^0.10.1",
+    "cdktf-local-build": "^0.0.81",
+    "cdktf-local-exec": "^0.0.93",
+    "constructs": "^10.0.111",
+    "iam-floyd": "^0.286.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
