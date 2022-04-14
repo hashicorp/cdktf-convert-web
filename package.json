@@ -6,6 +6,8 @@
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
+    "postinstall": "cd frontend && npm install",
+    "frontend": "cd frontend && REACT_APP_BACKEND_URL=$(cat ../outputs.json | jq -r '.development[\"convert-backend-url\"]') npm start",
     "get": "cdktf get",
     "build": "tsc",
     "synth": "cdktf synth",

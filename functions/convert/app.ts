@@ -6,10 +6,15 @@ import {
   config as cfg,
 } from "@cdktf/provider-generator";
 
-function res(status: number, content: Record<string, any>) {
+function res(
+  status: number,
+  content: Record<string, any>,
+  headers?: Record<string, string | boolean>
+) {
   return {
     statusCode: status,
     headers: {
+      ...headers,
       "Content-Type": "application/json",
     },
     isBase64Encoded: false,
@@ -45,6 +50,18 @@ exports.handler = async function (
     queryStringParameters: { provider },
     body,
   } = event;
+
+  // Enable CORS
+  if (method === "OPTIONS") {
+    return res(
+      200,
+      {},
+      {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      }
+    );
+  }
 
   if (method !== "POST") {
     return res(405, {

@@ -1,0 +1,55 @@
+.App {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+.select-group {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.select-group + .select-group {
+  margin-left: 30px;
+}
+
+.select-group label {
+  font-weight: bold;
+  display: block;
+}
+.select-group select,
+.select-group input {
+  margin-top: 10px;
+}
+
+/* Sidebar is on top with items side by side */
+.App-sidebar {
+  float: left;
+  width: 100vw;
+}
+
+.App-sidebar-content {
+  display: flex;
+}
+
+section button {
+  margin-top: 2em;
+}
+
+@media only screen and (min-width: 1200px) {
+  main {
+    display: flex;
+    width: calc(100vw - 2em - 30px);
+  }
+  section {
+    float: left;
+    flex-grow: 1;
+  }
+
+  section + section {
+    margin-left: 30px;
+  }
+}

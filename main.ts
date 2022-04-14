@@ -40,7 +40,7 @@ class ConvertLambda extends PrefixConstruct {
         allowHeaders: ["content-type"],
       },
     });
-    new LambdaPermission(this, "markhub-upload-auth-permission", {
+    new LambdaPermission(this, "lambda-execution-permission", {
       statementId: "AllowApiGatewayHTTP",
       action: "lambda:InvokeFunction",
       functionName: handler.fn.arn,
