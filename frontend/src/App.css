@@ -38,6 +38,15 @@
 section button {
   margin-top: 2em;
 }
+.select {
+  min-width: 10em;
+  margin-top: 1em;
+  z-index: 100;
+}
+
+.select-broad {
+  min-width: 20em;
+}
 
 @media only screen and (min-width: 1200px) {
   main {

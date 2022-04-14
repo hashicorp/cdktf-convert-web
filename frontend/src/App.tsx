@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import "./App.css";
 import ky from "ky";
 import AceEditor from "react-ace";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 import "ace-builds/src-noconflict/mode-terraform";
 import "ace-builds/src-noconflict/mode-java";
@@ -83,12 +85,46 @@ function useGetConvertedCode() {
     state,
     trigger: (language: string, providers: string[], codeToConvert: string) =>
       setState({ state: "triggered", language, providers, codeToConvert }),
+    resetState: () => setState({ state: "idle" }),
   };
 }
 
+const options = [
+  {
+    value: "typescript",
+    label: "TypeScript",
+  },
+  {
+    value: "python",
+    label: "Python",
+  },
+  {
+    value: "java",
+    label: "Java",
+  },
+  {
+    value: "csharp",
+    label: "C#",
+  },
+  // {
+  //   value: "golang",
+  //   label: "Go",
+  // },
+];
+
+const providers: string[] = [
+  "hashicorp/aws@~> 4.9.0",
+  "hashicorp/google@ ~> 4.17.0",
+  "hashicorp/azurerm@ ~> 3.1.0",
+];
+
 function App() {
   const [currentHcl, setCurrentHcl] = React.useState(defaultHcl);
-  const { state, trigger } = useGetConvertedCode();
+  const [language, setLanguage] = React.useState<string>("typescript");
+  const [selectedProviders, setSelectedProviders] = React.useState<string[]>(
+    []
+  );
+  const { state, trigger, resetState } = useGetConvertedCode();
 
   let targetContent = "...";
   if (state.state === "success") {
@@ -114,23 +150,36 @@ function App() {
         <div className="App-sidebar-content">
           <div className="select-group">
             <label htmlFor="language">Language</label>
-            <select id="language">
-              <option value="typescript">Typescript</option>
-              <option value="python">Python</option>
-              <option value="java">Java</option>
-              <option value="csharp">C#</option>
-              <option disabled value="go">
-                Go (Not supported right now)
-              </option>
-            </select>
+            <Select
+              onChange={(e) => {
+                setLanguage(e?.value!);
+                resetState();
+              }}
+              value={options.find((opt) => opt.value === language)}
+              options={options}
+              className="select"
+            />
           </div>
 
           <div className="select-group">
             <label htmlFor="providers">Providers</label>
-            <input
-              type="text"
-              id="providers"
-              placeholder="TODO: make this a multi item entry / autocomplete thing"
+
+            <CreatableSelect
+              isMulti
+              value={providers
+                .filter((provider) => selectedProviders.includes(provider))
+                .map((provider) => ({
+                  value: provider,
+                  label: provider,
+                }))}
+              onChange={(items) => {
+                setSelectedProviders(items.map((item) => item.value));
+              }}
+              options={providers.map((provider) => ({
+                value: provider,
+                label: provider,
+              }))}
+              className="select select-broad"
             />
           </div>
         </div>
@@ -153,7 +202,7 @@ function App() {
           <button
             disabled={state.state === "loading"}
             onClick={() => {
-              trigger("typescript", ["hashicorp/aws@=4.9.0"], currentHcl);
+              trigger(language, selectedProviders, currentHcl);
             }}
           >
             Convert to CDKTF
