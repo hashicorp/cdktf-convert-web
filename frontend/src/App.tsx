@@ -112,13 +112,14 @@ const options = [
   // },
 ];
 
-const providers: string[] = [
+const allProviders: string[] = [
   "hashicorp/aws@~> 4.9.0",
   "hashicorp/google@ ~> 4.17.0",
   "hashicorp/azurerm@ ~> 3.1.0",
 ];
 
 function App() {
+  const [mutateUrl, setMutateUrl] = React.useState(false);
   const [currentHcl, setCurrentHcl] = React.useState(defaultHcl);
   const [language, setLanguage] = React.useState<string>("typescript");
   const [selectedProviders, setSelectedProviders] = React.useState<string[]>(
@@ -138,6 +139,63 @@ function App() {
   if (state.state === "loading") {
     targetContent = "Converting code...";
   }
+
+  useEffect(() => {
+    if (mutateUrl) {
+      return;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    console.debug("Getting values from URL params");
+    const code = urlParams.get("code");
+    if (code) {
+      console.debug(`Setting code: ${code}`);
+      setCurrentHcl(decodeURIComponent(code));
+    }
+
+    const language = urlParams.get("language");
+    if (language) {
+      console.debug(`Setting language: ${language}`);
+      setLanguage(language);
+    }
+
+    const providers = urlParams.getAll("providers");
+    console.debug({ providers });
+    if (providers.length > 0) {
+      console.debug(`Setting providers: ${providers}`);
+      setSelectedProviders(providers);
+    }
+    console.debug(`Done reading the URL`);
+    setMutateUrl(true);
+  }, [
+    mutateUrl,
+    setMutateUrl,
+    setCurrentHcl,
+    setLanguage,
+    setSelectedProviders,
+  ]);
+
+  // Write current state to url
+  useEffect(() => {
+    if (!mutateUrl) {
+      return;
+    }
+
+    console.log("Adjusting URL based on content change", {
+      currentHcl,
+      language,
+      selectedProviders,
+    });
+
+    const url = new URL("http://example.com/");
+    url.searchParams.set("language", language);
+    selectedProviders.forEach((provider) =>
+      url.searchParams.append("providers", provider)
+    );
+    url.searchParams.set("code", encodeURIComponent(currentHcl));
+
+    window.history.replaceState({}, "", url.search);
+  }, [mutateUrl, currentHcl, language, selectedProviders]);
 
   return (
     <div className="App">
@@ -166,16 +224,14 @@ function App() {
 
             <CreatableSelect
               isMulti
-              value={providers
-                .filter((provider) => selectedProviders.includes(provider))
-                .map((provider) => ({
-                  value: provider,
-                  label: provider,
-                }))}
+              value={selectedProviders.map((provider) => ({
+                value: provider,
+                label: provider,
+              }))}
               onChange={(items) => {
                 setSelectedProviders(items.map((item) => item.value));
               }}
-              options={providers.map((provider) => ({
+              options={allProviders.map((provider) => ({
                 value: provider,
                 label: provider,
               }))}
