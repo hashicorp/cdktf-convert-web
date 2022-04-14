@@ -56,6 +56,7 @@ function useGetConvertedCode() {
     }
     setState({ state: "loading" });
 
+    console.debug("Constructing URL", apiUrl);
     const url = new URL(`${apiUrl}/`);
     url.searchParams.set("language", state.language);
     state.providers.forEach((provider) =>

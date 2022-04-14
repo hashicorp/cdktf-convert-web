@@ -33,16 +33,17 @@ class PrefixConstruct extends Construct {
 const region = "eu-central-1";
 
 class ConvertLambda extends PrefixConstruct {
-  public endpoint: string;
+  public api: Apigatewayv2Api;
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
     const handler = new DockerFunction(this, "handler", {
       path: path.resolve(__dirname, "functions/convert"),
       timeout: 900, // 15 minutes timeout
+      memorySize: 1024, // 1024MB memory
     });
 
-    const apiEndpoint = new Apigatewayv2Api(this, "api", {
+    this.api = new Apigatewayv2Api(this, "api", {
       name: `${this.prefix}-convert-api`,
       protocolType: "HTTP",
       target: handler.fn.arn,
@@ -57,9 +58,8 @@ class ConvertLambda extends PrefixConstruct {
       action: "lambda:InvokeFunction",
       functionName: handler.fn.arn,
       principal: "apigateway.amazonaws.com",
-      sourceArn: `${apiEndpoint.executionArn}/*/*`,
+      sourceArn: `${this.api.executionArn}/*/*`,
     });
-    this.endpoint = apiEndpoint.apiEndpoint;
   }
 }
 
@@ -169,7 +169,7 @@ class ConverFrontend extends PrefixConstruct {
         },
         {
           originId: LAMBDA_ORIGIN_ID,
-          domainName: Fn.replace(api.endpoint, "https://", ""),
+          domainName: Fn.replace(api.api.apiEndpoint, "https://", ""),
           customOriginConfig: {
             originProtocolPolicy: "https-only",
             httpPort: 80,
@@ -238,7 +238,7 @@ class ConvertPage extends TerraformStack {
     const frontend = new ConverFrontend(this, "frontend", lambda);
 
     new TerraformOutput(this, "convert-backend-url", {
-      value: lambda.endpoint,
+      value: lambda.api.apiEndpoint,
     });
     new TerraformOutput(this, "convert-frontend-url", {
       value: frontend.endpoint,

@@ -115,7 +115,7 @@ exports.handler = async function (
   }
 
   console.log("Read schema", schema);
-
+  console.log("Converting code");
   let code;
   try {
     const ts = await convert(hcl, {
@@ -126,6 +126,7 @@ exports.handler = async function (
   } catch (e) {
     return unexpectedFail("Could not convert", e as Error);
   }
+  console.log("Converted code", code);
 
   return res(200, {
     code,
