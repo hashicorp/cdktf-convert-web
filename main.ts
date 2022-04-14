@@ -27,6 +27,7 @@ class ConvertLambda extends PrefixConstruct {
 
     const handler = new DockerFunction(this, "handler", {
       path: path.resolve(__dirname, "functions/convert"),
+      timeout: 300, // 5 minutes timeout
     });
 
     const apiEndpoint = new Apigatewayv2Api(this, "api", {

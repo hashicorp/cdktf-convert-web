@@ -6,10 +6,10 @@ set -ex
 
 SERVER=$(cat outputs.json | jq -r '.development["convert-backend-url"]')
 
-CODE=$(cat fixture.hcl)
+CODE=$(cat fixture.hcl | base64)
 
 curl -X POST -H "Content-Type: application/json" \
-    -d "{ 'code': $CODE }" \
-    "$SERVER/?provider='aws%40%3D3.0'&provider='google%40%3D4.0.5'"
+    -d "{ \"code\": \"$CODE\" }" \
+    "$SERVER/?provider='aws%40%3D3.0'&provider='google%40%3D4.17.0'"
 
 

@@ -2,6 +2,9 @@ FROM docker.mirror.hashicorp.services/hashicorp/jsii-terraform
 
 RUN yum install -y cmake3 automake libtool
 
+# We could mount sth in, but until then only tmp can be written to it seems
+ENV TF_PLUGIN_CACHE_DIR="/tmp" 
+
 RUN mkdir -p /lambda
 WORKDIR /lambda
 COPY tsconfig.json /lambda/

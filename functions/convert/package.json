@@ -10,9 +10,11 @@
   "description": "",
   "dependencies": {
     "@cdktf/hcl2cdk": "^0.10.1",
+    "@cdktf/provider-generator": "^0.10.1",
     "aws-lambda-ric": "^2.0.0"
   },
   "devDependencies": {
-    "typescript": "^4.6.3"
+    "@types/fs-extra": "^9.0.13",
+    "typescript": "^3.9.10"
   }
 }
