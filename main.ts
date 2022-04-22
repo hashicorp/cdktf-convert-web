@@ -37,7 +37,7 @@ class ConvertLambda extends PrefixConstruct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const handler = new DockerFunction(this, "handler", {
+    const handler = new DockerFunction(this, `${this.prefix}-convert`, {
       path: path.resolve(__dirname, "functions/convert"),
       timeout: 900, // 15 minutes timeout
       memorySize: 1024, // 1024MB memory
@@ -248,9 +248,11 @@ export class ConvertPage extends TerraformStack {
 
 export function getDevelopmentPrefix() {
   const userName = process.env.USER_NAME || require("os").userInfo().username;
-  return `development-${userName}`;
+  return `dev-${userName}`;
 }
 
 const app = new App();
 new ConvertPage(app, "development", getDevelopmentPrefix());
+// const prod = new ConvertPage(app, "production")
+
 app.synth();
