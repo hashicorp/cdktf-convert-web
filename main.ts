@@ -222,7 +222,7 @@ class ConverFrontend extends PrefixConstruct {
   }
 }
 
-class ConvertPage extends TerraformStack {
+export class ConvertPage extends TerraformStack {
   prefix: string;
   constructor(scope: Construct, name: string) {
     super(scope, name);

@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConvertPage can synthesize 1`] = `
+"{
+  \\"data\\": {
+    \\"aws_ecr_authorization_token\\": {
+      \\"convert_ecr-repo_ecr-repository-token_52EB0F01\\": {
+        \\"depends_on\\": [
+          \\"aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC\\"
+        ]
+      }
+    },
+    \\"external\\": {
+      \\"convert_handler_asset_image_external_9669525A\\": {
+        \\"depends_on\\": [
+          \\"null_resource.convert_handler_asset_buildAndPush_FDA3B10A\\"
+        ],
+        \\"program\\": [
+          \\"node\\",
+          \\"assets/convert_handler_asset_image_data-source-asset_1EE93001/2EAD8044CEA5DDF4986E4E6365900403/c8e8a77a516802aa678c88f25e88734f13ecf972ae-data-source.js\\"
+        ],
+        \\"query\\": {
+          \\"password\\": \\"\${data.aws_ecr_authorization_token.convert_ecr-repo_ecr-repository-token_52EB0F01.password}\\",
+          \\"repositoryUrl\\": \\"\${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url}\\",
+          \\"username\\": \\"\${data.aws_ecr_authorization_token.convert_ecr-repo_ecr-repository-token_52EB0F01.user_name}\\"
+        }
+      }
+    }
+  },
+  \\"output\\": {
+    \\"convert-backend-url\\": {
+      \\"value\\": \\"\${aws_apigatewayv2_api.convert_api_4B4E7BD2.api_endpoint}\\"
+    },
+    \\"convert-frontend-url\\": {
+      \\"value\\": \\"https://\${aws_cloudfront_distribution.frontend_cf_6C82FC12.domain_name}\\"
+    },
+    \\"convert_handler_ecr-url_3AF7B8DF\\": {
+      \\"value\\": \\"\${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url}@\${data.external.convert_handler_asset_image_external_9669525A.result[\\\\\\"sha256Digest\\\\\\"]}\\"
+    },
+    \\"convert_handler_handler-c86146ed2152874a455da41185006f67f34e78322e-lambda-arn_89B14527\\": {
+      \\"value\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\"
+    },
+    \\"convert_handler_lambda-arn_46CEFA40\\": {
+      \\"value\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\"
+    }
+  },
+  \\"provider\\": {
+    \\"aws\\": [
+      {
+        \\"region\\": \\"eu-central-1\\"
+      }
+    ],
+    \\"external\\": [
+      {
+      }
+    ],
+    \\"null\\": [
+      {
+      }
+    ]
+  },
+  \\"resource\\": {
+    \\"aws_apigatewayv2_api\\": {
+      \\"convert_api_4B4E7BD2\\": {
+        \\"cors_configuration\\": {
+          \\"allow_headers\\": [
+            \\"content-type\\"
+          ],
+          \\"allow_methods\\": [
+            \\"*\\"
+          ],
+          \\"allow_origins\\": [
+            \\"*\\"
+          ]
+        },
+        \\"name\\": \\"convert-convert-api\\",
+        \\"protocol_type\\": \\"HTTP\\",
+        \\"target\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\"
+      }
+    },
+    \\"aws_cloudfront_distribution\\": {
+      \\"frontend_cf_6C82FC12\\": {
+        \\"comment\\": \\"convert convert frontend\\",
+        \\"default_cache_behavior\\": {
+          \\"allowed_methods\\": [
+            \\"DELETE\\",
+            \\"GET\\",
+            \\"HEAD\\",
+            \\"OPTIONS\\",
+            \\"PATCH\\",
+            \\"POST\\",
+            \\"PUT\\"
+          ],
+          \\"cached_methods\\": [
+            \\"HEAD\\",
+            \\"GET\\",
+            \\"OPTIONS\\"
+          ],
+          \\"forwarded_values\\": {
+            \\"cookies\\": {
+              \\"forward\\": \\"none\\"
+            },
+            \\"query_string\\": false
+          },
+          \\"target_origin_id\\": \\"s3Origin\\",
+          \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
+        },
+        \\"default_root_object\\": \\"index.html\\",
+        \\"enabled\\": true,
+        \\"logging_config\\": {
+          \\"bucket\\": \\"\${aws_s3_bucket.frontend_loggingbycket_5D2A07E7.bucket_domain_name}\\"
+        },
+        \\"ordered_cache_behavior\\": [
+          {
+            \\"allowed_methods\\": [
+              \\"DELETE\\",
+              \\"GET\\",
+              \\"HEAD\\",
+              \\"OPTIONS\\",
+              \\"PATCH\\",
+              \\"POST\\",
+              \\"PUT\\"
+            ],
+            \\"cached_methods\\": [
+              \\"HEAD\\",
+              \\"GET\\",
+              \\"OPTIONS\\"
+            ],
+            \\"forwarded_values\\": {
+              \\"cookies\\": {
+                \\"forward\\": \\"none\\"
+              },
+              \\"query_string\\": true
+            },
+            \\"path_pattern\\": \\"/convert/*\\",
+            \\"target_origin_id\\": \\"lambda\\",
+            \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
+          },
+          {
+            \\"allowed_methods\\": [
+              \\"DELETE\\",
+              \\"GET\\",
+              \\"HEAD\\",
+              \\"OPTIONS\\",
+              \\"PATCH\\",
+              \\"POST\\",
+              \\"PUT\\"
+            ],
+            \\"cached_methods\\": [
+              \\"HEAD\\",
+              \\"GET\\",
+              \\"OPTIONS\\"
+            ],
+            \\"forwarded_values\\": {
+              \\"cookies\\": {
+                \\"forward\\": \\"none\\"
+              },
+              \\"query_string\\": true
+            },
+            \\"path_pattern\\": \\"/*\\",
+            \\"target_origin_id\\": \\"s3Origin\\",
+            \\"viewer_protocol_policy\\": \\"redirect-to-https\\"
+          }
+        ],
+        \\"origin\\": [
+          {
+            \\"custom_origin_config\\": {
+              \\"http_port\\": 80,
+              \\"https_port\\": 443,
+              \\"origin_protocol_policy\\": \\"https-only\\",
+              \\"origin_ssl_protocols\\": [
+                \\"TLSv1.2\\",
+                \\"TLSv1.1\\",
+                \\"TLSv1\\"
+              ]
+            },
+            \\"domain_name\\": \\"\${aws_s3_bucket_website_configuration.frontend_website-configuration_53A72F76.website_endpoint}\\",
+            \\"origin_id\\": \\"s3Origin\\"
+          },
+          {
+            \\"custom_origin_config\\": {
+              \\"http_port\\": 80,
+              \\"https_port\\": 443,
+              \\"origin_protocol_policy\\": \\"https-only\\",
+              \\"origin_ssl_protocols\\": [
+                \\"TLSv1.2\\",
+                \\"TLSv1.1\\",
+                \\"TLSv1\\"
+              ]
+            },
+            \\"domain_name\\": \\"\${replace(aws_apigatewayv2_api.convert_api_4B4E7BD2.api_endpoint, \\\\\\"https://\\\\\\", \\\\\\"\\\\\\")}\\",
+            \\"origin_id\\": \\"lambda\\"
+          }
+        ],
+        \\"restrictions\\": {
+          \\"geo_restriction\\": {
+            \\"restriction_type\\": \\"none\\"
+          }
+        },
+        \\"viewer_certificate\\": {
+          \\"cloudfront_default_certificate\\": true
+        }
+      }
+    },
+    \\"aws_cloudwatch_log_group\\": {
+      \\"convert_handler_snoop-log-group_C1CC7AA3\\": {
+        \\"name\\": \\"/aws/lambda/handler-c86146ed2152874a455da41185006f67f34e78322e\\",
+        \\"retention_in_days\\": 7
+      }
+    },
+    \\"aws_ecr_repository\\": {
+      \\"convert_ecr-repo_ecr-repository_9D2F63EC\\": {
+        \\"name\\": \\"handler\\"
+      }
+    },
+    \\"aws_iam_policy\\": {
+      \\"convert_handler_server-role_role-policy_424031BB\\": {
+        \\"name\\": \\"c8a746bfba7cfcb5426adeafdafc9e5392d09735de-role-policy\\",
+        \\"path\\": \\"/\\",
+        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Action\\\\\\":[\\\\\\"logs:CreateLogStream\\\\\\",\\\\\\"logs:PutLogEvents\\\\\\"],\\\\\\"Resource\\\\\\":[\\\\\\"\${aws_cloudwatch_log_group.convert_handler_snoop-log-group_C1CC7AA3.arn}\\\\\\",\\\\\\"\${aws_cloudwatch_log_group.convert_handler_snoop-log-group_C1CC7AA3.arn}:log-stream:*\\\\\\"],\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\"}]}\\"
+      }
+    },
+    \\"aws_iam_role\\": {
+      \\"convert_handler_server-role_1BE54754\\": {
+        \\"assume_role_policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Action\\\\\\":[\\\\\\"sts:AssumeRole\\\\\\",\\\\\\"sts:SetSourceIdentity\\\\\\"],\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":{\\\\\\"Service\\\\\\":[\\\\\\"lambda.amazonaws.com\\\\\\"]}}]}\\",
+        \\"name\\": \\"c8a746bfba7cfcb5426adeafdafc9e5392d09735de\\"
+      }
+    },
+    \\"aws_iam_role_policy_attachment\\": {
+      \\"convert_handler_server-role_PolicyAttachment_0EBC11FA\\": {
+        \\"policy_arn\\": \\"\${aws_iam_policy.convert_handler_server-role_role-policy_424031BB.arn}\\",
+        \\"role\\": \\"\${aws_iam_role.convert_handler_server-role_1BE54754.name}\\"
+      }
+    },
+    \\"aws_lambda_alias\\": {
+      \\"convert_handler_alias_7810D384\\": {
+        \\"function_name\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\",
+        \\"function_version\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.version}\\",
+        \\"name\\": \\"local\\"
+      }
+    },
+    \\"aws_lambda_function\\": {
+      \\"convert_handler_fn_1102DBD9\\": {
+        \\"depends_on\\": [
+          \\"aws_cloudwatch_log_group.convert_handler_snoop-log-group_C1CC7AA3\\"
+        ],
+        \\"function_name\\": \\"handler-c86146ed2152874a455da41185006f67f34e78322e\\",
+        \\"image_uri\\": \\"\${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url}@\${data.external.convert_handler_asset_image_external_9669525A.result[\\\\\\"sha256Digest\\\\\\"]}\\",
+        \\"memory_size\\": 1024,
+        \\"package_type\\": \\"Image\\",
+        \\"publish\\": true,
+        \\"role\\": \\"\${aws_iam_role.convert_handler_server-role_1BE54754.arn}\\",
+        \\"timeout\\": 900
+      }
+    },
+    \\"aws_lambda_permission\\": {
+      \\"convert_lambda-execution-permission_DDC981B8\\": {
+        \\"action\\": \\"lambda:InvokeFunction\\",
+        \\"function_name\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\",
+        \\"principal\\": \\"apigateway.amazonaws.com\\",
+        \\"source_arn\\": \\"\${aws_apigatewayv2_api.convert_api_4B4E7BD2.execution_arn}/*/*\\",
+        \\"statement_id\\": \\"AllowApiGatewayHTTP\\"
+      }
+    },
+    \\"aws_s3_bucket\\": {
+      \\"frontend_bucket_EFDC2F3F\\": {
+        \\"bucket_prefix\\": \\"convert-convert-frontend\\",
+        \\"tags\\": {
+          \\"hc-internet-facing\\": \\"true\\"
+        }
+      },
+      \\"frontend_loggingbycket_5D2A07E7\\": {
+        \\"bucket_prefix\\": \\"convert-convert-cdn-logs\\"
+      }
+    },
+    \\"aws_s3_bucket_policy\\": {
+      \\"frontend_s3_policy_42C30805\\": {
+        \\"bucket\\": \\"\${aws_s3_bucket.frontend_bucket_EFDC2F3F.id}\\",
+        \\"policy\\": \\"{\\\\\\"Version\\\\\\":\\\\\\"2012-10-17\\\\\\",\\\\\\"Id\\\\\\":\\\\\\"PolicyForWebsiteEndpointsPublicContent\\\\\\",\\\\\\"Statement\\\\\\":[{\\\\\\"Sid\\\\\\":\\\\\\"PublicRead\\\\\\",\\\\\\"Effect\\\\\\":\\\\\\"Allow\\\\\\",\\\\\\"Principal\\\\\\":\\\\\\"*\\\\\\",\\\\\\"Action\\\\\\":[\\\\\\"s3:GetObject\\\\\\"],\\\\\\"Resource\\\\\\":[\\\\\\"\${aws_s3_bucket.frontend_bucket_EFDC2F3F.arn}/*\\\\\\",\\\\\\"\${aws_s3_bucket.frontend_bucket_EFDC2F3F.arn}\\\\\\"]}]}\\"
+      }
+    },
+    \\"aws_s3_bucket_website_configuration\\": {
+      \\"frontend_website-configuration_53A72F76\\": {
+        \\"bucket\\": \\"\${aws_s3_bucket.frontend_bucket_EFDC2F3F.bucket}\\",
+        \\"error_document\\": {
+          \\"key\\": \\"index.html\\"
+        },
+        \\"index_document\\": {
+          \\"suffix\\": \\"index.html\\"
+        }
+      }
+    },
+    \\"null_resource\\": {
+      \\"convert_handler_asset_buildAndPush_FDA3B10A\\": {
+        \\"depends_on\\": [
+          \\"data.aws_ecr_authorization_token.convert_ecr-repo_ecr-repository-token_52EB0F01\\"
+        ],
+        \\"provisioner\\": {
+          \\"local-exec\\": {
+            \\"command\\": \\"\\\\n      docker login --username \${data.aws_ecr_authorization_token.convert_ecr-repo_ecr-repository-token_52EB0F01.user_name} --password \${data.aws_ecr_authorization_token.convert_ecr-repo_ecr-repository-token_52EB0F01.password} \${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url} &&\\\\n      cd /Users/danielschmidt/work/cdktf-convert-web/functions/convert && docker build -t \${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url} . &&\\\\n      docker push \${aws_ecr_repository.convert_ecr-repo_ecr-repository_9D2F63EC.repository_url}\\\\n    \\"
+          }
+        },
+        \\"triggers\\": {
+          \\"folderhash\\": \\"97e953110b4d318b1605d81acf1d592fd17f85af\\",
+          \\"name\\": \\"handler\\"
+        }
+      }
+    }
+  },
+  \\"terraform\\": {
+    \\"required_providers\\": {
+      \\"aws\\": {
+        \\"source\\": \\"aws\\",
+        \\"version\\": \\"4.9.0\\"
+      },
+      \\"external\\": {
+        \\"source\\": \\"external\\",
+        \\"version\\": \\"2.2.2\\"
+      },
+      \\"null\\": {
+        \\"source\\": \\"null\\",
+        \\"version\\": \\"2.1.2\\"
+      }
+    }
+  }
+}"
+`;
