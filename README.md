@@ -1,13 +1,13 @@
-# Conver Page
+# CDKTF Convert Web
 
-This project sets up a convert web page that translates HCL to CDKTF Code using the cdktf convert command.
+This project sets up a convert web page that translates HCL to CDKTF Code using the `cdktf convert` command.
 
 ## Setup
 
-- `npm install`
-- `npm run deploy` to deploy the web page
-- `npm run watch` to watch for changes and deploy automatically
-- `npm run destroy` to destroy the web page
+- `yarn install` to install the dependencies
+- `yarn deploy` to deploy a development version
+- `yarn destroy` to destroy a development version
+- `yarn test` to run the tests
 
 ## License
 
