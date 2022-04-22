@@ -73,14 +73,14 @@ exports[`ConvertPage can synthesize 1`] = `
             \\"*\\"
           ]
         },
-        \\"name\\": \\"convert-convert-api\\",
+        \\"name\\": \\"development-test-convert-api\\",
         \\"protocol_type\\": \\"HTTP\\",
         \\"target\\": \\"\${aws_lambda_function.convert_handler_fn_1102DBD9.arn}\\"
       }
     },
     \\"aws_cloudfront_distribution\\": {
       \\"frontend_cf_6C82FC12\\": {
-        \\"comment\\": \\"convert convert frontend\\",
+        \\"comment\\": \\"development-test convert frontend\\",
         \\"default_cache_behavior\\": {
           \\"allowed_methods\\": [
             \\"DELETE\\",
@@ -264,13 +264,13 @@ exports[`ConvertPage can synthesize 1`] = `
     },
     \\"aws_s3_bucket\\": {
       \\"frontend_bucket_EFDC2F3F\\": {
-        \\"bucket_prefix\\": \\"convert-convert-frontend\\",
+        \\"bucket_prefix\\": \\"development-test-convert-frontend\\",
         \\"tags\\": {
           \\"hc-internet-facing\\": \\"true\\"
         }
       },
       \\"frontend_loggingbycket_5D2A07E7\\": {
-        \\"bucket_prefix\\": \\"convert-convert-cdn-logs\\"
+        \\"bucket_prefix\\": \\"development-test-convert-cdn-logs\\"
       }
     },
     \\"aws_s3_bucket_policy\\": {

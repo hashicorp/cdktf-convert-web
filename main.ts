@@ -224,9 +224,9 @@ class ConverFrontend extends PrefixConstruct {
 
 export class ConvertPage extends TerraformStack {
   prefix: string;
-  constructor(scope: Construct, name: string) {
+  constructor(scope: Construct, name: string, prefix = name) {
     super(scope, name);
-    this.prefix = name;
+    this.prefix = prefix;
 
     new AwsProvider(this, "aws", {
       region,
@@ -246,6 +246,11 @@ export class ConvertPage extends TerraformStack {
   }
 }
 
+export function getDevelopmentPrefix() {
+  const userName = process.env.USER_NAME || require("os").userInfo().username;
+  return `development-${userName}`;
+}
+
 const app = new App();
-new ConvertPage(app, "development");
+new ConvertPage(app, "development", getDevelopmentPrefix());
 app.synth();
