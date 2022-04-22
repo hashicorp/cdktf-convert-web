@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { App, TerraformOutput, TerraformStack, Fn } from "cdktf";
+import { App, TerraformOutput, TerraformStack, Fn, RemoteBackend } from "cdktf";
 import { AwsProvider } from "@cdktf/provider-aws";
 import { Provider } from "cdktf-local-build";
 import { DockerFunction } from "@cdktf-plus/aws";
@@ -253,6 +253,14 @@ export function getDevelopmentPrefix() {
 
 const app = new App();
 new ConvertPage(app, "development", getDevelopmentPrefix());
-// const prod = new ConvertPage(app, "production")
+const prod = new ConvertPage(app, "production");
+new RemoteBackend(prod, {
+  organization: "cdktf-team",
+  workspaces: [
+    {
+      name: "cdktf-convert-web-prod",
+    },
+  ],
+});
 
 app.synth();
