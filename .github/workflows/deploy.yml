@@ -23,9 +23,6 @@ jobs:
           terraform_version: 1.1.7
       - name: Install dependencies
         run: yarn
-      # If you use providers or modules that are not pre-built, you can install them here
-      - name: Generate bindings for providers and modules
-        run: cdktf get
       - name: Build frontend
         run: npm run predeploy
       - name: Run Tests
