@@ -26,10 +26,10 @@ jobs:
       # If you use providers or modules that are not pre-built, you can install them here
       - name: Generate bindings for providers and modules
         run: cdktf get
-      - name: Run Tests
-        run: npm test
       - name: Build frontend
         run: npm run predeploy
+      - name: Run Tests
+        run: npm test
       - name: Deploy
         run: cdktf deploy --auto-approve production
         env:
