@@ -256,11 +256,9 @@ new ConvertPage(app, "development", getDevelopmentPrefix());
 const prod = new ConvertPage(app, "production");
 new RemoteBackend(prod, {
   organization: "cdktf-team",
-  workspaces: [
-    {
-      name: "cdktf-convert-web-prod",
-    },
-  ],
+  workspaces: {
+    name: "cdktf-convert-web-prod",
+  },
 });
 
 app.synth();
